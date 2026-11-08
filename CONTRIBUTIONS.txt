@@ -1,0 +1,4 @@
+Angel May: Created and worked on Main.cpp options (6-10)
+Created and worked on Tree.h and Tree.cpp 
+Created and worked on fileLoader.h and fileLoader.cpp
+
