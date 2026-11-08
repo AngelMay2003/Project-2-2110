@@ -1,4 +1,4 @@
-// Purpose: dynamically sized undirected graph, file loading and BFS.
+// Purpose: Graph loading, display and BFS.
 // Author: David Muagba (AI-assisted contribution).
 #include "CampusGraph.h"
 #include <algorithm>
@@ -8,13 +8,13 @@
 #include <queue>
 
 namespace {
-// Trim surrounding whitespace, including CR from Windows text files.
+// Remove outer whitespace and Windows line endings.
 std::string trim(const std::string& s) {
     const auto first = s.find_first_not_of(" \t\r\n\v\f");
     if (first == std::string::npos) return "";
     return s.substr(first, s.find_last_not_of(" \t\r\n\v\f") - first + 1);
 }
-// Normalize for comparisons only, leaving displayed names unchanged.
+// Ignore case when comparing names.
 std::string key(const std::string& s) {
     std::string result = trim(s);
     for (char& c : result) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
@@ -52,11 +52,11 @@ bool CampusGraph::addBuilding(const std::string& name, std::string& reason) {
 bool CampusGraph::addConnection(const std::string& a, const std::string& b, std::string& reason) {
     reason.clear();
     const auto u = findBuilding(a), v = findBuilding(b);
-    if (trim(a).empty() || trim(b).empty()) reason = "blank connection endpoint";
-    else if (u == names_.size() || v == names_.size()) reason = "unknown building endpoint";
+    if (trim(a).empty() || trim(b).empty()) reason = "empty building name";
+    else if (u == names_.size() || v == names_.size()) reason = "unknown building";
     else if (u == v) reason = "self connection";
     else if (std::find(neighbors_[u].begin(), neighbors_[u].end(), v) != neighbors_[u].end())
-        reason = "duplicate connection (including reversed endpoints)";
+        reason = "duplicate connection (either direction)";
     if (!reason.empty()) return false;
     neighbors_[u].push_back(v);
     neighbors_[v].push_back(u);
@@ -83,7 +83,7 @@ CampusGraph::LoadSummary CampusGraph::load(const std::string& path, bool connect
         else {
             const auto separator = line.find('|');
             if (separator == std::string::npos || line.find('|', separator + 1) != std::string::npos)
-                reason = "expected BuildingA|BuildingB";
+                reason = "expected two building fields";
             else accepted = addConnection(line.substr(0, separator), line.substr(separator + 1), reason);
         }
         if (accepted) ++summary.accepted;
@@ -115,7 +115,7 @@ bool CampusGraph::breadthFirst(const std::string& start, std::vector<Visit>& vis
         visits.push_back({names_[current], distance[current]});
         for (const auto next : neighbors_[current]) {
             if (visited[next]) continue;
-            visited[next] = true; // Mark at enqueue so cycles cannot enqueue duplicates.
+            visited[next] = true; // Mark before enqueue to avoid repeats.
             distance[next] = distance[current] + 1;
             pending.push(next);
         }
