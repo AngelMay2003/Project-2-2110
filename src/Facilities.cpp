@@ -1,15 +1,15 @@
-// Purpose: file-order facility storage with validated hash-based ID lookup.
+// Purpose: Facility loading and lookup.
 // Author: David Muagba (AI-assisted).
 #include "Facilities.h"
 #include <fstream>
 #include <ostream>
 namespace {
-// Trim fields without changing meaningful internal whitespace.
+// Trim outer whitespace.
 std::string trim(const std::string& s) {
     const auto first = s.find_first_not_of(" \t\r\n\v\f");
     return first == std::string::npos ? "" : s.substr(first, s.find_last_not_of(" \t\r\n\v\f") - first + 1);
 }
-// Compare ASCII names ignoring case and outer whitespace.
+// Compare names without case or outer whitespace.
 std::string key(const std::string& s) { return HashTable::normalize(s); }
 }
 Facilities::Facilities(const CampusGraph& graph, std::size_t capacity) : graph_(graph), index_(capacity) {}
