@@ -1,4 +1,4 @@
-// Purpose: normalized ID hashing, chained insertion and lookup.
+// Purpose: Hash table functions.
 // Author: David Muagba (AI-assisted).
 #include "HashTable.h"
 #include <stdexcept>
