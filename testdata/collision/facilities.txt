@@ -1,0 +1,8 @@
+# Purpose: collision plus rejection tests; starter data is untouched.
+f001|First| library |Study
+F014|Second|Library|study
+F001|Overwrite attempt|Library|Other
+004|Invalid ID|Library|Study
+F003|Unknown location|Missing|Study
+F004||Library|Study
+F005|Extra|Library|Study|extra
