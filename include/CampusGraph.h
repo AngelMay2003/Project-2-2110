@@ -1,4 +1,4 @@
-// Purpose: reusable campus graph and BFS interface.
+// Purpose: Campus graph and BFS.
 // Author: David Muagba (AI-assisted contribution).
 #ifndef CAMPUS_GRAPH_H
 #define CAMPUS_GRAPH_H
@@ -9,20 +9,20 @@
 
 class CampusGraph {
 public:
-    // Resolve a name to its first accepted building spelling.
+    // Get the stored building name.
     bool canonicalBuilding(const std::string& name, std::string& result) const;
     struct Visit { std::string building; std::size_t distance; };
     struct LoadSummary { bool opened; std::size_t accepted; std::size_t rejected; };
-    // Add a trimmed, unique building; preserve its original capitalization.
+    // Add a building unless it is invalid or already exists.
     bool addBuilding(const std::string& name, std::string& reason);
-    // Add one undirected edge, rejecting unknown endpoints, loops and duplicates.
+    // Add a valid two-way connection.
     bool addConnection(const std::string& a, const std::string& b, std::string& reason);
-    // Loaders append records and report filename, physical line number and reason.
+    // Load records and report rejected lines.
     LoadSummary loadBuildings(const std::string& path, std::ostream& warnings);
     LoadSummary loadConnections(const std::string& path, std::ostream& warnings);
-    // Return queue-based BFS order and distances; unknown starts return false.
+    // Find reachable buildings and distances. Return false for an unknown start.
     bool breadthFirst(const std::string& start, std::vector<Visit>& visits) const;
-    // Print insertion-order adjacency lists, degrees and graph totals.
+    // Show neighbors, degrees and totals.
     void display(std::ostream& out) const;
     std::size_t buildingCount() const { return names_.size(); }
     std::size_t edgeCount() const { return edges_; }
