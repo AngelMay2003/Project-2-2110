@@ -1,45 +1,25 @@
-# Graph contribution and integration
+# Graph notes
 
-Author: David Muagba (AI-assisted implementation).
+Author: David Muagba (AI-assisted).
 
-Scope: CampusGraph module, graph/building loaders, BFS, standalone demo and tests.
-Original data files were not modified. Facilities and hashing are now separate modules; department tree and final menu remain unfinished. Do not treat this as a complete milestone submission.
+The graph uses growing adjacency lists. Buildings and neighbors stay in input
+order. Each connection is stored at both endpoints and counted once. Names
+ignore case and outer whitespace; displayed names keep the first spelling.
 
-## Design
-CampusGraph uses vector<string> names and vector<vector<size_t>> adjacency lists.
-Both grow dynamically. Adjacency lists use space proportional to vertices plus
-edges and retain file insertion order without sorting. Each edge updates both
-endpoints and increments the edge total once. Name comparisons trim surrounding
-whitespace and ignore case, while display preserves the first accepted spelling.
+BFS uses a queue and marks buildings visited when enqueued. It returns visit
+order and distances, including the start at distance 0. An unknown start returns
+false. An isolated start returns only itself. BFS takes O(V + E) after name lookup.
 
-BFS uses std::queue, a visited vector marked before enqueue, and a distance vector.
-Its returned visits include the start at distance zero. Unknown starts return false
-and clear the result. Isolated starts return one visit. BFS runs in O(V + E) after
-the start-name lookup. Name lookup is linear; it is unrelated to facility ID hashing.
+Load buildings before connections. Loaders append records, skip blank/comment
+lines, trim whitespace and handle CRLF. Bad records print filename, line number
+and reason. Each file gets an accepted/rejected summary, including missing files.
+Buildings reject duplicates and bad field counts. Connections reject missing or
+unknown endpoints, self-connections and duplicates in either direction.
 
-## Loading
-Call loadBuildings before loadConnections on a fresh graph. The methods append to
-the same object; they do not reset it. Their summaries count accepted and rejected
-non-comment records per call; blank lines and full-line comments are skipped.
-Warnings include path, physical line number and reason. Missing files return
-opened=false without throwing an input exception. Surrounding whitespace and CRLF
-are handled. Inline comments are not defined or removed.
+Keep one graph for the whole program. Facilities uses it for building names.
+Startup order: buildings, connections, facilities, departments. The final menu
+must show errors and return to the menu. Test programs have separate main functions;
+do not link them together.
 
-Buildings reject blank names, extra pipe-separated fields and case-insensitive
-duplicates. Connections require exactly two nonempty pipe-separated endpoints,
-known buildings, no self-edge and no duplicate/reversed duplicate. These are
-rubric-derived assumptions; check the full specification for additional rules.
-
-## Team integration
-Include CampusGraph.h and keep one CampusGraph instance alive in the final app.
-Load the graph files at their required positions in the specification's four-file
-startup order. Required order: buildings, connections, facilities, departments.
-Use display(out) for adjacency output. Use breadthFirst(start, visits) for traversal;
-show an error when it returns false, otherwise print visits and the count out of
-buildingCount(). Use getline in the final menu so names with spaces work.
-Do not include tests/graph_demo.cpp or tests/graph_tests.cpp in the final app build.
-
-The final menu, exact prompts and numbering are left to the team. Full project
-CONTRIBUTIONS.txt is also left to the team because other members' roles and work
-have not been verified. This document records only this contribution; no commit
-or live demonstration by David is claimed.
+Still needed: department tree, final menu, integration, complete project documents
+and CELL testing. No CELL run is claimed here.
