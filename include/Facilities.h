@@ -1,4 +1,4 @@
-// Purpose: facility records, validated loading and hash-indexed ID search.
+// Purpose: Facility records and ID search.
 // Author: David Muagba (AI-assisted).
 #ifndef FACILITIES_H
 #define FACILITIES_H
@@ -10,13 +10,13 @@ class Facilities {
 public:
     enum class SearchStatus { Invalid, NotFound, Found };
     struct SearchResult { SearchStatus status; std::string normalizedId; const Facility* facility; };
-    // Use the shared campus graph to resolve accepted building spellings.
+    // Use building names from the shared graph.
     explicit Facilities(const CampusGraph& graph, std::size_t capacity = HashTable::DefaultCapacity);
-    // Append accepted records in file order and print diagnostics and summary.
+    // Load facilities and print the summary.
     void load(const std::string& path, std::ostream& out);
-    // Search only through the custom table; pointer valid until next load/mutation.
+    // Search by hash table. Reloading may invalidate the returned pointer.
     SearchResult search(const std::string& id) const;
-    // Display all fields in accepted file order and a total.
+    // Show facilities in file order and the total.
     void display(std::ostream& out) const;
     const HashTable& index() const { return index_; }
 private:
