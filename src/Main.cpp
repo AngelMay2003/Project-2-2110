@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "fileLoader.h"
 #include "Tree.h"
 #include "CampusGraph.h"
@@ -11,9 +12,12 @@ int main()
 {
     fileLoader loader("data");
     
-    DepartmentTree* departments = loader.getDepartments();
-    
     loader.loadData();
+    
+    DepartmentTree* departments = loader.getDepartments();
+    CampusGraph* graph = loader.getGraph();
+    Facilities* facilities = loader.getFacilities();
+    
     
     int menu;
     
@@ -52,7 +56,7 @@ int main()
             cout << "Enter facility ID: ";
             getline(cin, id);
 
-            Facilities::SearchResult result = facilities->search(id)
+            Facilities::SearchResult result = facilities->search(id);
 
             if (result.status == Facilities::SearchStatus::Invalid)
             {
@@ -77,7 +81,7 @@ int main()
         else if (menu == 3)
         {
             //Add view campus graph
-            graph->display(cout)
+            graph->display(cout);
         }
         
         else if (menu == 4)
@@ -85,15 +89,9 @@ int main()
             //Add display grpah count and degrees
             cout << "Buildings: " << graph->buildingCount() << endl;
             cout << "Connections: " << graph->edgeCount() << endl;
-            cout << "Degrees: " endl;
-
-            const vector<string>& names = graph->buildingNames();
-
-            for (size_t i = 0; i < names.size(); i++)
-            {
-                    cout << " " << names[i] << 
-                        : " << graph->degree(i) << endl;
-            }
+            cout << "Degrees: " << endl;
+            
+            graph->display(cout);
         }
         
         else if (menu == 5)
@@ -118,24 +116,25 @@ int main()
             else
             {
                 vector<CampusGraph::Visit> visits;
-
+                
                 if (!graph->breadthFirst(start, visits))
                 {
-                    cout << Building not found: " << input << endl;
+                    cout << "Building not found: " << input << endl;
                 }
-
-                else 
+                
+                else
                 {
                     cout << "Buildings reachable from " << start << " (BFS order):" << endl;
-
+                    
                     for (size_t i = 0; i < visits.size(); i++)
                     {
                         cout << " " << visits[i].building
-                            << " (distance " visits[i].distance << ")" << endl;
+                        << " (distance " << visits[i].distance << ")" << endl;
                     }
-
+                    
                     cout << "Total reachable: " << visits.size() << endl;
                 }
+            }
         }
         
         else if (menu == 6)
