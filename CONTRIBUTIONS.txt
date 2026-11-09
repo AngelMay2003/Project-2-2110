@@ -6,6 +6,8 @@ Created and worked on fileLoader.h and fileLoader.cpp
 David Muagba:
 Created and worked on facilities_test.cpp, graph_demo.cpp, graph_tests.cpp
 Created and worked on CampusGraph, Facilities, Hashtable .cpp/.h
+Created and worked on README.txt
+Created and worked on FACILITIES_NOTES.md, GRAPH_NOTES.md, GRAPH_TEST_RESULTS.md
 
 Alan Mendoza:
 Worked on main.cpp menu options 1-5.
