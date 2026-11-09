@@ -40,27 +40,102 @@ int main()
         if (menu == 1)
         {
             //Add view facilities
+            facilities->display(cout);
         
         }
         
         else if (menu == 2)
         {
             // Add search by id
+            string id;
+
+            cout << "Enter facility ID: ";
+            getline(cin, id);
+
+            Facilities::SearchResult result = facilities->search(id)
+
+            if (result.status == Facilities::SearchStatus::Invalid)
+            {
+                cout << "Invalid facility ID." << endl;
+            }
+
+            else if (result.status == Facilities::SearchStatus::NotFound)
+            {
+                cout << "No facility found with ID " << result.normalizedId << "." << endl;
+            }
+
+            else
+            {
+                cout << "Facility found:" << endl;
+                cout << " ID:       " << result.facility->id << endl;
+                cout << " Name:     " << result.facility->name << endl;
+                cout << " Building: " << result.facility->building << endl;
+                cout << " Category: " << result.facility->category << endl;
+            }
         }
         
         else if (menu == 3)
         {
             //Add view campus graph
+            graph->display(cout)
         }
         
         else if (menu == 4)
         {
             //Add display grpah count and degrees
+            cout << "Buildings: " << graph->buildingCount() << endl;
+            cout << "Connections: " << graph->edgeCount() << endl;
+            cout << "Degrees: " endl;
+
+            const vector<string>& names = graph->buildingNames();
+
+            for (size_t i = 0; i < names.size(); i++)
+            {
+                    cout << " " << names[i] << 
+                        : " << graph->degree(i) << endl;
+            }
         }
         
         else if (menu == 5)
         {
             //Add BFS
+            string input;
+            string start;
+
+            cout << "Enter starting building: ";
+            getline(cin, input);
+
+            if (input.find_first_not_of(" \t\r\n" ) == string::npos)
+            {
+                cout << "Building name can't be empty." << endl;
+            }
+
+            else if (!graph->canonicalBuilding(input, start))
+            {
+                cout << "Building not found: " << input << endl;
+            }
+
+            else
+            {
+                vector<CampusGraph::Visit> visits;
+
+                if (!graph->breadthFirst(start, visits))
+                {
+                    cout << Building not found: " << input << endl;
+                }
+
+                else 
+                {
+                    cout << "Buildings reachable from " << start << " (BFS order):" << endl;
+
+                    for (size_t i = 0; i < visits.size(); i++)
+                    {
+                        cout << " " << visits[i].building
+                            << " (distance " visits[i].distance << ")" << endl;
+                    }
+
+                    cout << "Total reachable: " << visits.size() << endl;
+                }
         }
         
         else if (menu == 6)
