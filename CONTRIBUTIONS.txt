@@ -1,4 +1,11 @@
-Angel May: Created and worked on Main.cpp options (6-10)
+Angel May: 
+Created and worked on Main.cpp options (6-10)
 Created and worked on Tree.h and Tree.cpp 
 Created and worked on fileLoader.h and fileLoader.cpp
 
+David Muagba:
+Created and worked on facilities_test.cpp, graph_demo.cpp, graph_tests.cpp
+Created and worked on CampusGraph, Facilities, Hashtable .cpp/.h
+
+Alan Mendoza:
+Worked on main.cpp menu options 1-5.
