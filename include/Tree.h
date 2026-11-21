@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <queue>
 
 struct DepartmentNode {
     
@@ -27,9 +28,17 @@ private:
     
     void preorderRecursive(DepartmentNode* node) const; //Performs preorder on the tree
     
+    void postorderRecursive(DepartmentNode* node) const;
+    
     std::string normalize(std::string name) const; //makes it follow a specific format (like all caps or lowercase)
     
     void deleteTree(DepartmentNode* node); //prevents copying
+    
+    int numLeaves(DepartmentNode* node) const;
+    
+    int totalDepartments(DepartmentNode* node) const;
+    
+    int treeHeight(DepartmentNode* node) const;
     
 public:
     
@@ -53,8 +62,14 @@ public:
     void displayHierarchy() const; //Setting to display tree
     
     void preorderTraversal() const; //displays preorder traversal
-    
-    int getDepth(DepartmentNode* node) const; //displays tree depth
-};
 
-#endif
+    int getDepth(DepartmentNode* node) const; //displays tree depth
+    
+    void postorderTraversal() const;
+    
+    void levelorderTraversal() const;
+    
+    void displayStats() const;
+    
+    
+};
