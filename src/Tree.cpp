@@ -197,6 +197,64 @@ void DepartmentTree::preorderTraversal() const
     preorderRecursive(root);
 } // runs preorder traversal
 
+void DepartmentTree::postorderRecursive(DepartmentNode* node) const
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+    
+    for (size_t i = 0; i < node->children.size(); i++)
+    {
+        postorderRecursive(node->children[i]);
+    }
+    
+    std::cout << node->name << '\n';
+}
+
+void DepartmentTree::postorderTraversal() const
+{
+    if (Empty())
+    {
+        std::cout << "Nothing was loaded.\n";
+        return;
+    }
+    
+    std::cout << "\nPostorder Traversal:\n";
+    
+    postorderRecursive(root);
+}
+
+void DepartmentTree::levelorderTraversal() const
+{
+    if (Empty())
+    {
+        std::cout << "Nothing was loaded.\n";
+        return;
+    }
+    
+    std::cout << "\nLevel-Order Traversal:\n";
+    
+    std::queue<DepartmentNode*> departmentQueue;
+    
+    departmentQueue.push(root);
+    
+    while(!departmentQueue.empty())
+    {
+        DepartmentNode* current = departmentQueue.front();
+        
+        departmentQueue.pop();
+        
+        std::cout << current->name << '\n';
+        
+        for (size_t i = 0; i < current->children.size(); i++)
+        {
+            departmentQueue.push(current->children[i]);
+        }
+    }
+}
+
+
 int DepartmentTree::getDepth(DepartmentNode* node) const
 {
     int depth = 0;
@@ -235,3 +293,84 @@ void DepartmentTree::displayDepartmentInfo(std::string name) const
     
     std::cout << "Depth: " << getDepth(department) << '\n';
 } //Displays info about specific tree node
+
+int DepartmentTree::totalDepartments(DepartmentNode *node) const
+{
+    if (node == nullptr)
+    {
+        return 0;
+    }
+    
+    int total = 1;
+    
+    for (size_t i = 0; i < node->children.size(); i++)
+    {
+        total += totalDepartments(node->children[i]);
+    }
+    
+    return total;
+}
+
+int DepartmentTree::numLeaves(DepartmentNode *node) const
+{
+    if (node == nullptr)
+    {
+        return 0;
+    }
+    
+    if (node->children.empty())
+    {
+        return 1;
+    }
+    
+    int leaves = 0;
+    
+    for (size_t i = 0; i < node->children.size(); i++)
+    {
+        leaves += numLeaves(node->children[i]);
+    }
+    
+    return leaves;
+}
+
+int DepartmentTree::treeHeight(DepartmentNode *node) const
+{
+    if (node == nullptr || node->children.empty())
+    {
+        return 0;
+    }
+    
+    int maxHeight = 0;
+    
+    for (size_t i = 0; i < node->children.size(); i++)
+    {
+        int childHeight = treeHeight(node->children[i]);
+        
+        if (childHeight > maxHeight)
+        {
+            maxHeight = childHeight;
+        }
+    }
+    
+    return maxHeight + 1;
+}
+
+void DepartmentTree::displayStats() const
+{
+    std::cout << "\nDepartment Statistics:\n";
+    
+    if (Empty())
+    {
+        std::cout << "Nothing was loaded.\n";
+        std::cout << "Total Departments: 0\n";
+        std::cout << "Leaves: 0\n";
+        std::cout << "Tree height: None\n";
+        return;
+    }
+    
+    std::cout << "Total departments: " << totalDepartments(root) << '\n';
+    
+    std::cout << "Leaves: " << numLeaves(root) << '\n';
+    
+    std::cout << "Tree height: " << treeHeight(root) << '\n';
+}
