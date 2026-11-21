@@ -27,14 +27,22 @@ int main()
         
         cout << "1. View all facilities" << endl;
         cout << "2. Search facility by ID" << endl;
-        cout << "3. View campus graph" << endl;
-        cout << "4. Display graph counts and degrees" << endl;
-        cout << "5. Find reachable building (BFS)" << endl;
-        cout << "6. Add department" << endl;
-        cout << "7. Search department" << endl;
-        cout << "8. Display department hierarchy" << endl;
-        cout << "9. Run preorder traversal" << endl;
-        cout << "10. Exit" << endl;
+        cout << "3. Search facility by name" << endl; // Need to add
+        cout << "4. Search facility by category" << endl; // Need to add
+        cout << "5. View campus graph" << endl;
+        cout << "6. Display graph counts and degrees" << endl;
+        cout << "7. Find reachable building (BFS)" << endl;
+        cout << "8. Find shortest path (BFS)" << endl; // Need to add
+        cout << "9. Add Department" << endl;
+        cout << "10. Search Department" << endl;
+        cout << "11. Display Department Hierarchy" << endl;
+        cout << "12. Run Preorder Traversal" << endl;
+        cout << "13. Run Postorder Traversal" << endl;
+        cout << "14. Run Level-order Traversal" << endl;
+        cout << "15. Display Department Statistics" << endl;
+        cout << "16. Facility Category Report" << endl; // Need to add
+        cout << "17. Graph Connectivity Report" << endl; // Need to add
+        cout << "0. Exit" << endl;
         
         cout << "Enter your choice: ";
         
@@ -80,11 +88,21 @@ int main()
         
         else if (menu == 3)
         {
+            // Add Search facility by name
+        }
+        
+        else if (menu == 4)
+        {
+            //Add Search facility by category
+        }
+        
+        else if (menu == 5)
+        {
             //Add view campus graph
             graph->display(cout);
         }
         
-        else if (menu == 4)
+        else if (menu == 6)
         {
             //Add display grpah count and degrees
             cout << "Buildings: " << graph->buildingCount() << endl;
@@ -94,7 +112,7 @@ int main()
             graph->display(cout);
         }
         
-        else if (menu == 5)
+        else if (menu == 7)
         {
             //Add BFS
             string input;
@@ -137,7 +155,13 @@ int main()
             }
         }
         
-        else if (menu == 6)
+        else if (menu == 8)
+        {
+            // Add Find shortest path (BFS)
+
+        }
+        
+        else if (menu == 9)
         {
             string name;
             string parentName;
@@ -172,7 +196,7 @@ int main()
             }
         }
         
-        else if (menu == 7)
+        else if (menu == 10)
         {
             string name;
             
@@ -190,27 +214,52 @@ int main()
             }
         }
         
-        else if (menu == 8)
+        else if (menu == 11)
         {
             departments->displayHierarchy();
         }
         
-        else if (menu == 9)
+        else if (menu == 12)
         {
             departments->preorderTraversal();
         }
         
-        else if (menu == 10)
+        else if (menu == 13)
+        {
+            departments->postorderTraversal();
+        }
+        
+        else if (menu == 14)
+        {
+            departments->levelorderTraversal();
+        }
+        
+        else if (menu == 15)
+        {
+            departments->displayStats();
+        }
+        
+        else if (menu == 16)
+        {
+            // Add Facility category report
+        }
+        
+        else if (menu == 17)
+        {
+            // Add Graph connectivity report
+        }
+        
+        else if (menu == 0)
         {
             cout << "Exit: Thanks for using our system" << endl;
         }
         
         else
         {
-            cout << "Only use the menu with numbers 1-10." << endl;
+            cout << "Only use the menu with numbers 1-17." << endl;
         }
         
-    } while (menu != 10);
+    } while (menu != 0);
     
     return 0;
 }
