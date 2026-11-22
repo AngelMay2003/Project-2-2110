@@ -1,5 +1,4 @@
 // Purpose: regression checks for graph invariants, BFS and file validation.
-// Author: David Muagba (AI-assisted contribution).
 #include "CampusGraph.h"
 #include <cassert>
 #include <fstream>

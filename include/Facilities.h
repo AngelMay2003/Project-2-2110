@@ -1,5 +1,4 @@
 // Purpose: Facility records and ID search.
-// Author: David Muagba (AI-assisted).
 #ifndef FACILITIES_H
 #define FACILITIES_H
 #include "HashTable.h"
@@ -29,6 +28,8 @@ public:
     
     // Show facilities in file order and the total.
     void display(std::ostream& out) const;
+    // Show facility counts and percentages by category.
+    void categoryReport(std::ostream& out) const;
     const HashTable& index() const { return index_; }
 private:
     const CampusGraph& graph_;

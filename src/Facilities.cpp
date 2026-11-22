@@ -1,8 +1,10 @@
 // Purpose: Facility loading and lookup.
-// Author: David Muagba (AI-assisted).
 #include "Facilities.h"
+#include <algorithm>
 #include <fstream>
+#include <iomanip>
 #include <ostream>
+#include <sstream>
 namespace {
 // Trim outer whitespace.
 std::string trim(const std::string& s) {
@@ -90,5 +92,38 @@ void Facilities::searchByCategory(const std::string& category, std::ostream& out
 void Facilities::display(std::ostream& out) const {
     if (records_.empty()) out << "No facilities loaded.\n";
     for (const auto& f : records_) out << f.id << " | " << f.name << " | " << f.building << " | " << f.category << '\n';
+    out << "Total facilities: " << records_.size() << '\n';
+}
+
+void Facilities::categoryReport(std::ostream& out) const {
+    struct Category {
+        std::string name;
+        std::string normalizedName;
+        std::size_t count;
+    };
+    std::vector<Category> categories;
+    for (const auto& facility : records_) {
+        const auto normalizedName = key(facility.category);
+        auto category = std::find_if(categories.begin(), categories.end(),
+            [&](const Category& entry) { return entry.normalizedName == normalizedName; });
+        if (category == categories.end()) {
+            categories.push_back({facility.category, normalizedName, 1});
+        } else {
+            ++category->count;
+        }
+    }
+
+    out << "Facility Category Report\n";
+    if (categories.empty()) {
+        out << "No facilities available.\n";
+    } else {
+        out << "Category | Count | Percentage\n";
+        for (const auto& category : categories) {
+            std::ostringstream percentage;
+            percentage << std::fixed << std::setprecision(1)
+                       << 100.0 * category.count / records_.size();
+            out << category.name << " | " << category.count << " | " << percentage.str() << "%\n";
+        }
+    }
     out << "Total facilities: " << records_.size() << '\n';
 }

@@ -1,5 +1,4 @@
 // Purpose: Graph loading, display and BFS.
-// Author: David Muagba (AI-assisted contribution).
 #include "CampusGraph.h"
 #include <algorithm>
 #include <cctype>
@@ -135,4 +134,51 @@ void CampusGraph::display(std::ostream& out) const {
         out << '\n';
     }
     out << "Buildings: " << names_.size() << ", connections: " << edges_ << '\n';
+}
+
+void CampusGraph::connectivityReport(std::ostream& out) const {
+    out << "Graph Connectivity Report\n";
+    out << "Total buildings: " << buildingCount() << '\n';
+    out << "Total connections: " << edgeCount() << '\n';
+    if (names_.empty()) out << "No buildings loaded.\n";
+
+    std::size_t highestDegree = 0;
+    for (const auto& neighbors : neighbors_) {
+        highestDegree = std::max(highestDegree, neighbors.size());
+    }
+
+    std::string highest, isolated;
+    for (std::size_t i = 0; i < names_.size(); ++i) {
+        if (neighbors_[i].size() == highestDegree) {
+            if (!highest.empty()) highest += ", ";
+            highest += names_[i];
+        }
+        if (neighbors_[i].empty()) {
+            if (!isolated.empty()) isolated += ", ";
+            isolated += names_[i];
+        }
+    }
+    out << "Highest degree (" << highestDegree << "): " << (highest.empty() ? "None" : highest) << '\n';
+    out << "Isolated buildings: " << (isolated.empty() ? "None" : isolated) << '\n';
+
+    std::size_t components = 0;
+    std::vector<bool> visited(names_.size(), false);
+    std::queue<std::size_t> pending;
+    // One traversal for each component.
+    for (std::size_t start = 0; start < names_.size(); ++start) {
+        if (visited[start]) continue;
+        ++components;
+        visited[start] = true;
+        pending.push(start);
+        while (!pending.empty()) {
+            const auto current = pending.front();
+            pending.pop();
+            for (const auto next : neighbors_[current]) {
+                if (visited[next]) continue;
+                visited[next] = true;
+                pending.push(next);
+            }
+        }
+    }
+    out << "Connected components: " << components << '\n';
 }

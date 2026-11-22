@@ -1,5 +1,4 @@
 // Purpose: facility/hash regression tests, separate from the final application.
-// Author: David Muagba (AI-assisted).
 #include "Facilities.h"
 #include <cassert>
 #include <iostream>

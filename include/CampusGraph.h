@@ -1,5 +1,4 @@
 // Purpose: Campus graph and BFS.
-// Author: David Muagba (AI-assisted contribution).
 #ifndef CAMPUS_GRAPH_H
 #define CAMPUS_GRAPH_H
 #include <cstddef>
@@ -26,6 +25,8 @@ public:
     bool shortestPath(const std::string& from, const std::String& to, std::vector<std::string>& path) const;
     // Show neighbors, degrees and totals.
     void display(std::ostream& out) const;
+    // Show degrees, isolated buildings and component count.
+    void connectivityReport(std::ostream& out) const;
     std::size_t buildingCount() const { return names_.size(); }
     std::size_t edgeCount() const { return edges_; }
 private:

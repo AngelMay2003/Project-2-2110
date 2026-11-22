@@ -40,8 +40,8 @@ int main()
         cout << "13. Run Postorder Traversal" << endl;
         cout << "14. Run Level-order Traversal" << endl;
         cout << "15. Display Department Statistics" << endl;
-        cout << "16. Facility Category Report" << endl; // Need to add
-        cout << "17. Graph Connectivity Report" << endl; // Need to add
+        cout << "16. Facility Category Report" << endl;
+        cout << "17. Graph Connectivity Report" << endl;
         cout << "0. Exit" << endl;
         
         cout << "Enter your choice: ";
@@ -241,12 +241,12 @@ int main()
         
         else if (menu == 16)
         {
-            // Add Facility category report
+            facilities->categoryReport(cout);
         }
         
         else if (menu == 17)
         {
-            // Add Graph connectivity report
+            graph->connectivityReport(cout);
         }
         
         else if (menu == 0)
