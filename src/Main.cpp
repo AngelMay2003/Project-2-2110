@@ -89,11 +89,36 @@ int main()
         else if (menu == 3)
         {
             // Add Search facility by name
+            string name;
+
+            cout << "Enter facility name: ";
+            getline(cin, name);
+
+            if (name.find_first_not_of(" \t\r\n") == string::npos) 
+            {
+                cout << "Name cann't be empty. " << endl;
+            }
+            else 
+            {
+                facilities->searchByName(name, cout);
+            }
         }
         
         else if (menu == 4)
         {
             //Add Search facility by category
+            string category;
+            cout << "Enter category: ";
+            getline(cin, name);
+
+            if (name.find_first_not_of(" \t\r\n") == string::npos) 
+            {
+                cout << "Category cann't be empty. " << endl;
+            }
+            else
+            {
+                facilities->searchByCategory(name, cout);
+            }
         }
         
         else if (menu == 5)
@@ -158,7 +183,34 @@ int main()
         else if (menu == 8)
         {
             // Add Find shortest path (BFS)
+            string fromInput;
+            string toInput;
 
+            cout << "Enter starting building: ";
+            getline(cin, fromInput);
+
+            cout << "Enter destination buidling: ";
+            getline(cin, toInput);
+
+            if (fromInput.find_first_not_of(" \t\r\n") == string::npos ||
+                toInput.find_first_not_of(" \t\r\n") == string::npos)
+            {
+                cout << "Building names cann't be empty." << endl;
+            }
+            else
+            {
+                cout << "Shortest route )" << path.size() - 1 << " step(s)):" << endl;
+
+                for (size_t i = 0; i < path.size(); i++)
+                    {
+                        if (i > 0)
+                        {
+                            cout << " -> ";
+                        }
+                        cout << path[i];
+                    }
+                cout << endl;
+            }
         }
         
         else if (menu == 9)
