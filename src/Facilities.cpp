@@ -56,6 +56,37 @@ Facilities::SearchResult Facilities::search(const std::string& id) const {
     if (!index_.find(normalized, record)) return {SearchStatus::NotFound, normalized, nullptr};
     return {SearchStatus::Found, normalized, &records_[record]};
 }
+
+void Facilities::searchByName(const std::string& name, std::ostream& out) const {
+    const std::string q = key(name);
+    std::size_t found = 0;
+    if (!q.empty()) {
+        for (const auto& record : records_) {
+            if (key(record.name).find(q) != std::string::npos) {
+                out << record.id << " | " << record.name << << " | " << record.building << " | " << record.category << "\n";
+                ++found;
+            }
+        }
+    }
+    if (found == 0) out << "No facilities found.\n";
+    else out << found << " match(es).\n";
+}
+
+void Facilities::searchByCategory(const std::string& category, std::ostream& out) const {
+    const std::string c = key(category);
+    std::size_t found = 0;
+    if (!c.empty()) {
+        for (const auto& record : records_) {
+            if (key(record.category) == find(c)) {
+                out << record.id << " | " << record.name << << " | " << record.building << " | " << record.category << "\n";
+                ++found;
+            }
+        }
+    }
+    if (found == 0) out << "No facilities found.\n";
+    else out << found << " match(es).\n";
+}
+
 void Facilities::display(std::ostream& out) const {
     if (records_.empty()) out << "No facilities loaded.\n";
     for (const auto& f : records_) out << f.id << " | " << f.name << " | " << f.building << " | " << f.category << '\n';
