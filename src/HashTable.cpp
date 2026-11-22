@@ -1,5 +1,4 @@
 // Purpose: Hash table functions.
-// Author: David Muagba (AI-assisted).
 #include "HashTable.h"
 #include <stdexcept>
 std::string HashTable::normalize(const std::string& id) {
