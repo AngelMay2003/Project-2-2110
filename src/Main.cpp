@@ -27,12 +27,12 @@ int main()
         
         cout << "1. View all facilities" << endl;
         cout << "2. Search facility by ID" << endl;
-        cout << "3. Search facility by name" << endl; // Need to add
-        cout << "4. Search facility by category" << endl; // Need to add
+        cout << "3. Search facility by name" << endl;
+        cout << "4. Search facility by category" << endl;
         cout << "5. View campus graph" << endl;
         cout << "6. Display graph counts and degrees" << endl;
         cout << "7. Find reachable building (BFS)" << endl;
-        cout << "8. Find shortest path (BFS)" << endl; // Need to add
+        cout << "8. Find shortest path (BFS)" << endl; 
         cout << "9. Add Department" << endl;
         cout << "10. Search Department" << endl;
         cout << "11. Display Department Hierarchy" << endl;
@@ -46,7 +46,17 @@ int main()
         
         cout << "Enter your choice: ";
         
-        cin >> menu;
+        if (!(cin >> menu))
+        {
+            cout << "Only enter a number." << endl;
+            
+            cin.clear();
+            cin.ignore(10000, '\n');
+            
+            menu = -1;
+            continue;
+        }
+        
         cin.ignore(10000, '\n');
         
         if (menu == 1)
@@ -94,11 +104,11 @@ int main()
             cout << "Enter facility name: ";
             getline(cin, name);
 
-            if (name.find_first_not_of(" \t\r\n") == string::npos) 
+            if (name.find_first_not_of(" \t\r\n") == string::npos)
             {
                 cout << "Name cann't be empty. " << endl;
             }
-            else 
+            else
             {
                 facilities->searchByName(name, cout);
             }
@@ -109,15 +119,15 @@ int main()
             //Add Search facility by category
             string category;
             cout << "Enter category: ";
-            getline(cin, name);
+            getline(cin, category);
 
-            if (name.find_first_not_of(" \t\r\n") == string::npos) 
+            if (category.find_first_not_of(" \t\r\n") == string::npos)
             {
-                cout << "Category cann't be empty. " << endl;
+                cout << "Category can't be empty. " << endl;
             }
             else
             {
-                facilities->searchByCategory(name, cout);
+                facilities->searchByCategory(category, cout);
             }
         }
         
@@ -195,21 +205,26 @@ int main()
             if (fromInput.find_first_not_of(" \t\r\n") == string::npos ||
                 toInput.find_first_not_of(" \t\r\n") == string::npos)
             {
-                cout << "Building names cann't be empty." << endl;
+                cout << "Building names can't be empty." << endl;
             }
             else
             {
-                cout << "Shortest route )" << path.size() - 1 << " step(s)):" << endl;
+                vector<string> path;
+                
+                if (graph->shortestPath(fromInput, toInput, path))
+                {
+                    cout << "Shortest route (" << path.size() - 1 << " step(s)):" << endl;
 
-                for (size_t i = 0; i < path.size(); i++)
-                    {
-                        if (i > 0)
+                    for (size_t i = 0; i < path.size(); i++)
                         {
-                            cout << " -> ";
+                            if (i > 0)
+                            {
+                                cout << " -> ";
+                            }
+                            cout << path[i];
                         }
-                        cout << path[i];
-                    }
-                cout << endl;
+                    cout << endl;
+                }
             }
         }
         
