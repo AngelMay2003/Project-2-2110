@@ -49,4 +49,4 @@ Use Facilities::load for the third startup file, search for its three-state ID
 result, and display for file-order records. The final menu must format search
 results and return after errors. This portion does not implement that menu.
 
-The assignment prohibits AI-generated code. This partial implementation is AI-assisted and requires instructor permission for submission.
+The course requires instructor permission to submit AI-generated code.
