@@ -1,5 +1,4 @@
 // Purpose: Facility ID hash table.
-// Author: David Muagba (AI-assisted).
 #ifndef HASH_TABLE_H
 #define HASH_TABLE_H
 #include <cstddef>
