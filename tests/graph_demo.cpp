@@ -1,5 +1,4 @@
 // Purpose: standalone graph demonstration until the team adds the final menu.
-// Author: David Muagba (AI-assisted contribution).
 #include "CampusGraph.h"
 #include <iostream>
 int main(int argc, char* argv[]) {
