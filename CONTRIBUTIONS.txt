@@ -13,5 +13,6 @@ Created and worked on FACILITIES_NOTES.md, GRAPH_NOTES.md, GRAPH_TEST_RESULTS.md
 
 Alan Mendoza:
 Worked on main.cpp menu options 1-5. (M1)
+Update Facilities.h and Facilities.cpp to add search methods for name and category
 
 GitHub: https://github.com/AngelMay2003/Project-2-2110.git
