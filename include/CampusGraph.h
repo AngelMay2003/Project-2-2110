@@ -22,7 +22,7 @@ public:
     // Find reachable buildings and distances. Return false for an unknown start.
     bool breadthFirst(const std::string& start, std::vector<Visit>& visits) const;
     // The shortest route with smallest of hops. Return false for an unknown building.
-    bool shortestPath(const std::string& from, const std::String& to, std::vector<std::string>& path) const;
+    bool shortestPath(const std::string& from, const std::string& to, std::vector<std::string>& path) const;
     // Show neighbors, degrees and totals.
     void display(std::ostream& out) const;
     // Show degrees, isolated buildings and component count.
