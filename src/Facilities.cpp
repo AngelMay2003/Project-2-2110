@@ -65,7 +65,7 @@ void Facilities::searchByName(const std::string& name, std::ostream& out) const 
     if (!q.empty()) {
         for (const auto& record : records_) {
             if (key(record.name).find(q) != std::string::npos) {
-                out << record.id << " | " << record.name << << " | " << record.building << " | " << record.category << "\n";
+                out << record.id << " | " << record.name << " | " << record.building << " | " << record.category << "\n";
                 ++found;
             }
         }
@@ -79,8 +79,8 @@ void Facilities::searchByCategory(const std::string& category, std::ostream& out
     std::size_t found = 0;
     if (!c.empty()) {
         for (const auto& record : records_) {
-            if (key(record.category) == find(c)) {
-                out << record.id << " | " << record.name << << " | " << record.building << " | " << record.category << "\n";
+            if (key(record.category) == c) {
+                out << record.id << " | " << record.name << " | " << record.building << " | " << record.category << "\n";
                 ++found;
             }
         }
