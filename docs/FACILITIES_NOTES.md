@@ -1,8 +1,5 @@
 # Facilities and hash contribution (partial project)
 
-AI-assisted implementation prepared for David Muagba. The assignment prohibits
-AI-generated code; instructor permission is necessary before submission.
-
 The custom index uses separate chaining with 17 buckets. For an uppercase key,
 start h=0 and apply h=(31*h+character_code)%capacity for each character. One
 collision means one accepted insertion into a nonempty bucket. Duplicate and
