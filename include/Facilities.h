@@ -21,11 +21,11 @@ public:
     // Search by hash table. Reloading may invalidate the returned pointer.
     SearchResult search(const std::string& id) const;
 
-    // Search by hash table for the name
-    SearchResult search(const std::string& name) const;
+    // Search for the name
+    void searchByName(const std::string& name, std::ostream& out) const;
 
-    // Search by hash table for the category
-    SearchResult search(const std::string& category) const;
+    // Search for the category
+    void searchByCategory(const std::string& category, std::ostream& out) const;
     
     // Show facilities in file order and the total.
     void display(std::ostream& out) const;
