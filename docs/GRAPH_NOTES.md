@@ -1,7 +1,5 @@
 # Graph notes
 
-Author: David Muagba (AI-assisted).
-
 The graph uses growing adjacency lists. Buildings and neighbors stay in input
 order. Each connection is stored at both endpoints and counted once. Names
 ignore case and outer whitespace; displayed names keep the first spelling.
