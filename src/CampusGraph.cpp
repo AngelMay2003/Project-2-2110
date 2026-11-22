@@ -122,33 +122,43 @@ bool CampusGraph::breadthFirst(const std::string& start, std::vector<Visit>& vis
     return true;
 }
 
-bool CampusGraph::shortestPath(const std::string& from, const std::String& to, std::vector<std::string>& path) const;
+bool CampusGraph::shortestPath(const std::string& from, const std::string& to, std::vector<std::string>& path) const
+{
     path.clear();
     const auto source = findBuilding(from);
     const auto target = findBuilding(to);
-    if (source == names_.size() || target == names_.size()) return false;
-
-    const auto none = name_.size();
+    if (source == names_.size() || target == names_.size())
+        return false;
+    
+    const auto none = names_.size();
     std::vector<bool> visited(names_.size(), false);
     std::vector<std::size_t> parents(names_.size(), none);
     std::queue<std::size_t> pending;
     visited[source] = true;
     pending.push(source);
-
-    while (!pending.empty() && !visited[target]) {
+    
+    while (!pending.empty() && !visited[target])
+    {
         const auto current = pending.front();
         pending.pop();
-        for (const auto next : neighbors_[current]) {
-            if (visited[next]) continue;
+        for (const auto next : neighbors_[current])
+        {
+            if (visited[next])
+                continue;
             visited[next] = true; // Mark before enqueue to avoid repeats.
-            parent[next] = current;
+            parents[next] = current;
             pending.push(next);
         }
     }
-    if (!visited[target]) return true;
+    
+    if (!visited[target]) return false;
 
-    for (auto at = target; at !=none; at = parent[at]) path.push_back(names_[at]);
-    std:: reservse(path.begin(), path.end());
+    for (auto at = target; at !=none; at = parents[at])
+    {
+        path.push_back(names_[at]);
+    }
+    
+    std::reverse(path.begin(), path.end());
     return true;
 }
 
