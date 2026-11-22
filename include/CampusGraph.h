@@ -22,6 +22,8 @@ public:
     LoadSummary loadConnections(const std::string& path, std::ostream& warnings);
     // Find reachable buildings and distances. Return false for an unknown start.
     bool breadthFirst(const std::string& start, std::vector<Visit>& visits) const;
+    // The shortest route with smallest of hops. Return false for an unknown building.
+    bool shortestPath(const std::string& from, const std::String& to, std::vector<std::string>& path) const;
     // Show neighbors, degrees and totals.
     void display(std::ostream& out) const;
     std::size_t buildingCount() const { return names_.size(); }
