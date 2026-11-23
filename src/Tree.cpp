@@ -95,15 +95,18 @@ bool DepartmentTree::existDepartment(std::string name) const
 
 bool DepartmentTree::addDepartment(std::string name, std::string parentName)
 {
-    name = name.substr(name.find_first_not_of(" \t\r\n"));
     
-    name = name.substr(0, name.find_last_not_of(" \t\r\n") + 1);
+    size_t start = name.find_first_not_of(" \t\r\n");
     
-    if (name.empty())
+    if (start == std::string::npos)
     {
-        std::cout << "The Department name cannot be empty \n";
+        std::cout << "The Department name cannot be empty.\n";
         return false;
     }
+    
+    size_t end = name.find_last_not_of(" \t\r\n");
+    
+    name = name.substr(start, end - start + 1);
     
     if (existDepartment(name))
     {
@@ -364,7 +367,7 @@ void DepartmentTree::displayStats() const
         std::cout << "Nothing was loaded.\n";
         std::cout << "Total Departments: 0\n";
         std::cout << "Leaves: 0\n";
-        std::cout << "Tree height: None\n";
+        std::cout << "Tree height: NA\n";
         return;
     }
     
