@@ -39,7 +39,7 @@ bool DepartmentTree::Empty() const
 
 std::string DepartmentTree::normalize(std::string name) const
 {
-    size_t start = name.find_first_not_of("\t\r\n");
+    size_t start = name.find_first_not_of(" \t\r\n");
     
     if (start == std::string::npos)
     {
